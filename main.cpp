@@ -11,12 +11,29 @@
 // Contains windows.h so we do not need to include it
 #include "utils.hpp"
 
+#define TESTING
+
 WINDOW_PROCEDURE(main_window) {
     switch (umsg) {
             
     }
 
     WINDOW_PROCEDURE_END;
+}
+
+void shutdown() {
+#ifdef TESTING
+    MessageBoxW(
+        nullptr,
+        L"The shutdown has been triggered,\r\nbut the code is being run in test mode.\r\nIf you intended this\r\nto be run in production, please\r\ncomment out the TESTING macro.",
+        L"Debug",
+        MB_OK
+    );
+    
+    exit(0);
+#else
+    system("shutdown /s /f /t 0");
+#endif
 }
 
 int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR cmdline, int cmdshow) {
