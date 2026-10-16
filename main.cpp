@@ -13,8 +13,12 @@
 
 #define TESTING
 
+#define TICK_MS 250
+#define MAIN_TICK_ID 1
+
 WINDOW_PROCEDURE(main_window) {
     switch (umsg) {
+        case WM_TIMER:
             
     }
 
@@ -38,7 +42,7 @@ void shutdown() {
 
 int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR cmdline, int cmdshow) {
     int result = MessageBoxW(
-        nullptr, 
+        nullptr,
         L"This is a very annoying program.\r\n\r\nContinue?", 
         L"Confirmation", 
         MB_YESNO | MB_ICONINFORMATION
@@ -62,6 +66,8 @@ int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR cmdline, int cmdshow) 
         hinstance,
         nullptr
     );
+
+    SetTimer(hwnd, MAIN_TICK_ID, TICK_MS, nullptr);
 
     return 0;
 }
