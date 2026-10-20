@@ -15,11 +15,19 @@
 
 #define TICK_MS 250
 #define MAIN_TICK_ID 1
+#define ANNOYING_PROMPT_INTERVAL 10
+
+void spawn_prompt() {
+    
+}
 
 WINDOW_PROCEDURE(main_window) {
+    static int counter = 0;
+
     switch (umsg) {
         case WM_TIMER:
-            
+            counter++;
+            if (counter % ANNOYING_PROMPT_INTERVAL == 0) spawn_prompt();
     }
 
     WINDOW_PROCEDURE_END;
