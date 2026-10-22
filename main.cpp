@@ -10,6 +10,7 @@
 
 // Contains windows.h so we do not need to include it
 #include "utils.hpp"
+#include "annoying_prompt.hpp"
 
 #define TESTING
 
@@ -17,9 +18,8 @@
 #define MAIN_TICK_ID 1
 #define ANNOYING_PROMPT_INTERVAL 10
 
-void spawn_prompt() {
-    
-}
+int screen_x = 0;
+int screen_y = 0;
 
 WINDOW_PROCEDURE(main_window) {
     static int counter = 0;
@@ -27,7 +27,8 @@ WINDOW_PROCEDURE(main_window) {
     switch (umsg) {
         case WM_TIMER:
             counter++;
-            if (counter % ANNOYING_PROMPT_INTERVAL == 0) spawn_prompt();
+            if (counter % ANNOYING_PROMPT_INTERVAL == 0) spawn_prompt(randint(5, 1));
+            break;
     }
 
     WINDOW_PROCEDURE_END;
@@ -63,6 +64,12 @@ int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR cmdline, int cmdshow) 
     wc.hInstance = hinstance;
     wc.lpszClassName = L"MainWindow";
     RegisterClassW(&wc);
+
+    WNDCLASS prompt_wc{};
+    prompt_wc.lpfnWndProc = annoying_prompt;
+    prompt_wc.hInstance = hinstance;
+    prompt_wc.lpszClassName = L"PromptWindow";
+    RegisterClassW(&prompt_wc);
 
     HWND hwnd = CreateWindowExW(
         0,

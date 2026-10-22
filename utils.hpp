@@ -2,9 +2,14 @@
 
 #pragma once
 
+#define UNICODE
+#define _UNICODE
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <random>
+
+extern int screen_x;
+extern int screen_y;
 
 #define WINDOW_PROCEDURE(func_name) \
     LRESULT CALLBACK func_name(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
