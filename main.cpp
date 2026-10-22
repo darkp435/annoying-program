@@ -14,9 +14,9 @@
 
 #define TESTING
 
-#define TICK_MS 250
+#define TICK_MS 1000
 #define MAIN_TICK_ID 1
-#define ANNOYING_PROMPT_INTERVAL 10
+#define ANNOYING_PROMPT_INTERVAL 1
 
 int screen_x = 0;
 int screen_y = 0;
@@ -27,7 +27,9 @@ WINDOW_PROCEDURE(main_window) {
     switch (umsg) {
         case WM_TIMER:
             counter++;
-            if (counter % ANNOYING_PROMPT_INTERVAL == 0) spawn_prompt(randint(5, 1));
+            if (counter % ANNOYING_PROMPT_INTERVAL == 0) {
+                spawn_prompt(randint(5, 1));
+            }
             break;
     }
 
@@ -83,6 +85,13 @@ int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR cmdline, int cmdshow) 
     );
 
     SetTimer(hwnd, MAIN_TICK_ID, TICK_MS, nullptr);
+
+    MSG msg{};
+
+    while (GetMessageW(&msg, NULL, 0, 0) != 0) {
+        TranslateMessage(&msg);
+        DispatchMessageW(&msg);
+    }
 
     return 0;
 }

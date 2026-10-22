@@ -13,3 +13,11 @@ if(MINGW)
         -municode
     )
 endif()
+
+target_compile_options(Antiproductivity PRIVATE
+    -g
+)
+
+target_link_options(Antiproductivity PRIVATE
+    -g
+)

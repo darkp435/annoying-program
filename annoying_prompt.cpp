@@ -12,13 +12,11 @@ void spawn_prompt(int amount) {
             L"ATTENTION",
             WS_OVERLAPPEDWINDOW,
             0, 0,
-            screen_x / 10,
-            screen_y / 10,
-            nullptr,
-            nullptr,
-            GetModuleHandleW(nullptr),
-            nullptr
+            screen_x / 10, screen_y / 10,
+            nullptr, nullptr, GetModuleHandleW(nullptr), nullptr
         );
+
+        ShowWindow(hwnd, SW_SHOW);
     }
 }
 
