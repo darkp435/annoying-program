@@ -14,9 +14,10 @@
 
 #define TESTING
 
-#define TICK_MS 1000
+#define TICK_MS 5000
 #define MAIN_TICK_ID 1
 #define ANNOYING_PROMPT_INTERVAL 1
+#define MAX_PROMPTS_AMOUNT 1
 
 int screen_x = 0;
 int screen_y = 0;
@@ -28,7 +29,7 @@ WINDOW_PROCEDURE(main_window) {
         case WM_TIMER:
             counter++;
             if (counter % ANNOYING_PROMPT_INTERVAL == 0) {
-                spawn_prompt(randint(5, 1));
+                spawn_prompt(randint(1, MAX_PROMPTS_AMOUNT));
             }
             break;
     }
@@ -72,6 +73,9 @@ int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, PWSTR cmdline, int cmdshow) 
     prompt_wc.hInstance = hinstance;
     prompt_wc.lpszClassName = L"PromptWindow";
     RegisterClassW(&prompt_wc);
+
+    screen_x = GetSystemMetrics(SM_CXSCREEN);
+    screen_y = GetSystemMetrics(SM_CYSCREEN);
 
     HWND hwnd = CreateWindowExW(
         0,

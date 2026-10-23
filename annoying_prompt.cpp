@@ -6,12 +6,14 @@ WINDOW_PROCEDURE(annoying_prompt) {
 
 void spawn_prompt(int amount) {
     for (int _ = 0; _ < amount; _++) {
+        Vec2 position = randomize_screen_coord();
+
         HWND hwnd = CreateWindowExW(
             WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
             L"PromptWindow",
             L"ATTENTION",
             WS_OVERLAPPEDWINDOW,
-            0, 0,
+            position.x, position.y,
             screen_x / 10, screen_y / 10,
             nullptr, nullptr, GetModuleHandleW(nullptr), nullptr
         );
