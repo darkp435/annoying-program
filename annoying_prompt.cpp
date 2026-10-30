@@ -14,7 +14,7 @@ void spawn_prompt(int amount) {
             L"ATTENTION",
             WS_OVERLAPPEDWINDOW,
             position.x, position.y,
-            screen_x / 10, screen_y / 10,
+            screen_x / 5, screen_y / 5,
             nullptr, nullptr, GetModuleHandleW(nullptr), nullptr
         );
 
